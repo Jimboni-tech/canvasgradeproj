@@ -49,8 +49,8 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(options = options, service = Service(ChromeDriverManager().install()))
 driver.get("https://popcs.instructure.com/")
-email = "jimmy.zhou@popstudents.org"
-password = "1playclarinet1"
+email = ""
+password = ""
 getCourses(email, password)
 
 driver.quit()
