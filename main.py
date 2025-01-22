@@ -23,16 +23,19 @@ def userAuth(username, password) -> None:
 
 def getCourses(username, password) -> None:
     userAuth(username, password)
+    time.sleep(5)
     WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ic-DashboardCard")))
     
     courses = driver.find_elements(By.CSS_SELECTOR, ".ic-DashboardCard")
     
     for course in courses:
         try:
-
             courseContainer = WebDriverWait(course, 10).until(EC.presence_of_element_located((By.XPATH, ".//a[contains(@class, 'ic-DashboardCard__link')]")))
             courseURL = courseContainer.get_attribute("href")
             courseName = courseContainer.find_element(By.XPATH, ".//h3[contains(@class, 'ic-DashboardCard__header-title')]/span").text
+           
+
+            
             print(courseName)
             print(courseURL)
             print("--------")
@@ -45,12 +48,13 @@ def getCourses(username, password) -> None:
        
 
 options = webdriver.ChromeOptions()
-#options.add_argument("--headless=new")
+options.add_argument("--headless=new")
 options.add_experimental_option("detach", True)
 driver = webdriver.Chrome(options = options, service = Service(ChromeDriverManager().install()))
 driver.get("https://popcs.instructure.com/")
-email = ""
-password = ""
+email = input("Please enter your email: ")
+password = input("Please enter your password: ")
+
 getCourses(email, password)
 
 driver.quit()
